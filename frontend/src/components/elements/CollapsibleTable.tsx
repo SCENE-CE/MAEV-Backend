@@ -103,8 +103,8 @@ export default function CollapsibleTable(
           <TableHead>
             <TableRow>
               <TableCell />
-              {columns.map((column, index) => (
-                <TableCell key={index} align={column.align || 'left'}>
+              {columns.map((column) => (
+                <TableCell key={column.label} align={column.align || 'left'}>
                   {column.sortKey ? (
                     <TableSortLabel
                       active={sortKey === column.sortKey}

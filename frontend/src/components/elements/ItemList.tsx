@@ -95,7 +95,7 @@ export const ItemList = <G,T extends { id: number,snapShotHash?:string}>(
           />
         </Grid>
         <Grid item container flexDirection="column" spacing={1}>
-          {items && items.map((item) => (
+          {items?.map((item) => (
             item ? (
               <Grid key={item.id} item container spacing={1} flexDirection="row" alignItems="center" justifyContent="spaceBetween">
                 <Grid item container xs={8}>

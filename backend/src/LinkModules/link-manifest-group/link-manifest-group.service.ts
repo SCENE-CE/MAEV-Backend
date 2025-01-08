@@ -16,7 +16,6 @@ import { Manifest } from '../../BaseEntities/manifest/entities/manifest.entity';
 import { UserGroup } from '../../BaseEntities/user-group/entities/user-group.entity';
 import { ManifestService } from '../../BaseEntities/manifest/manifest.service';
 import { UserGroupService } from '../../BaseEntities/user-group/user-group.service';
-import { CreateGroupManifestDto } from './dto/create-group-manifest.dto';
 import { AddManifestToGroupDto } from './dto/add-manifest-to-group.dto';
 import { join } from 'path';
 import * as fs from 'fs';

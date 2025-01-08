@@ -6,22 +6,22 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
-import { CreateLinkMediaGroupDto } from './dto/create-link-media-group.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { LinkMediaGroup } from './entities/link-media-group.entity';
-import { Repository } from 'typeorm';
-import { UserGroupService } from '../../BaseEntities/user-group/user-group.service';
-import { MediaService } from '../../BaseEntities/media/media.service';
-import { MediaGroupRights } from '../../enum/rights';
-import { CustomLogger } from '../../utils/Logger/CustomLogger.service';
-import { CreateMediaDto } from '../../BaseEntities/media/dto/create-media.dto';
-import { AddMediaToGroupDto } from './dto/addMediaToGroupDto';
-import { join } from 'path';
-import * as fs from 'fs';
-import { ActionType } from '../../enum/actions';
-import { mediaOrigin } from '../../enum/origins';
+  NotFoundException
+} from "@nestjs/common";
+import { CreateLinkMediaGroupDto } from "./dto/create-link-media-group.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { LinkMediaGroup } from "./entities/link-media-group.entity";
+import { Repository } from "typeorm";
+import { UserGroupService } from "../../BaseEntities/user-group/user-group.service";
+import { MediaService } from "../../BaseEntities/media/media.service";
+import { MediaGroupRights } from "../../enum/rights";
+import { CustomLogger } from "../../utils/Logger/CustomLogger.service";
+import { CreateMediaDto } from "../../BaseEntities/media/dto/create-media.dto";
+import { AddMediaToGroupDto } from "./dto/addMediaToGroupDto";
+import { join } from "path";
+import * as fs from "fs";
+import { ActionType } from "../../enum/actions";
+import { mediaOrigin } from "../../enum/origins";
 
 @Injectable()
 export class LinkMediaGroupService {
@@ -52,20 +52,17 @@ export class LinkMediaGroupService {
 
   async createMedia(mediaDto: CreateMediaDto) {
     try {
-      const { idCreator, path, user_group } = mediaDto;
+      const { user_group } = mediaDto;
       const media = await this.mediaService.create(mediaDto);
-      console.log('mediaDto')
-      console.log(mediaDto)
       await this.addMediaToGroup({
         userGroupId: user_group.id,
         mediasId: [media.id],
         rights: MediaGroupRights.ADMIN,
       });
-      const toReturn = await this.getMediaRightsForUser(
+      return await this.getMediaRightsForUser(
         user_group.id,
         media.id,
       );
-      return toReturn;
     } catch (error) {
       this.logger.error(error.message, error.stack);
       throw new InternalServerErrorException(
