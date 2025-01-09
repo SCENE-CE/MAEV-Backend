@@ -23,7 +23,7 @@ export const createMedia = async (mediaDto: CreateMediaDto) => {
       if(response.statusText === "Payload Too Large"){
         toast.error('Your media is too large.');
       }else{
-      toast.error('Unsupported media type, if the media is a video use Peertube or Youtube instance.');
+      toast.error('Unsupported media type, to upload videos please use Youtube or a Peertube instance');
       }
     }
 
